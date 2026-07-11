@@ -9,6 +9,7 @@ from alembic import context
 
 from walauth.core.config import settings
 from walauth.db.base import Base
+import walauth.models
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
