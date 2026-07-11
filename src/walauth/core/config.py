@@ -17,7 +17,6 @@ class Settings(BaseSettings):
     PORT: int = 7007
 
     DATABASE_URL: str
-    CORS_ORIGIN: str
 
     JWT_SECRET: str
     ACCESS_TOKEN_EXPIRY: int = 30
