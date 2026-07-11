@@ -21,8 +21,8 @@ from walauth.core.config import settings
 # entire app shares this one instance for its whole lifetime.
 engine = create_async_engine(
     settings.DATABASE_URL, # dialect -> sqlite, driver -> aiosqlite
-    echo=True,  # SQL logging, turn off in prod
-    connect_args={"check_same_thread": False},  # needed for SQLite, not a general SQLAlchemy concept
+    echo=settings.IS_DEV_ENV,  # SQL logging, turn off in prod
+    connect_args={"check_same_thread": False},  # needed for SQLite (will be removed later), not a general SQLAlchemy concept
 )
 
 # AsyncSessionLocal — a factory that hands out fresh, isolated sessions for each request
