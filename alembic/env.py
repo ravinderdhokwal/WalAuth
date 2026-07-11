@@ -7,6 +7,9 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from alembic import context
 
+from walauth.core.config import settings
+from walauth.db.base import Base
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -22,6 +25,8 @@ if config.config_file_name is not None:
 # target_metadata = mymodel.Base.metadata
 target_metadata = None
 
+config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
+target_metadata = Base.metadata
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
@@ -88,8 +93,4 @@ if context.is_offline_mode():
 else:
     run_migrations_online()
 
-from src.walauth.core.config import settings
-from src.walauth.db.base import Base
 
-config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
-target_metadata = Base.metadata
