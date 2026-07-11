@@ -4,6 +4,7 @@ typed and validated, pulled from environment variables, but doesn't include all 
 only the ones you explicitly declare as class attributes
 """
 
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # BaseSettings is a special subclass of Pydantic's normal BaseModel. 
@@ -18,9 +19,15 @@ class Settings(BaseSettings):
 
     DATABASE_URL: str
 
-    JWT_SECRET: str
+    JWT_SECRET: SecretStr
     ACCESS_TOKEN_EXPIRY: int = 30
     REFRESH_TOKEN_EXPIRY: int = 7
+
+    ENVIRONMENT: str = "prod"
+
+    @property
+    def IS_DEV_ENV(self) -> bool:
+        return self.ENVIRONMENT.lower() in ("dev", "development", "local")
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
     # extra="ignore" -> ignore any environment variables that are not 
