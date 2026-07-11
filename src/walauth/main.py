@@ -7,7 +7,7 @@ def main() -> None:
         "walauth.app:app", 
         host="0.0.0.0", 
         port=settings.PORT,
-        reload=True # set False in production
+        reload=settings.IS_DEV_ENV
     )
 
 if __name__ == "__main__":
