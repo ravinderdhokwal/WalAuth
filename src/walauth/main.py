@@ -1,11 +1,14 @@
-from fastapi import FastAPI
-import uvicorn 
-
-app = FastAPI()
-
-@app.get("/")
-def read_root():
-    return {"message": "Hello World"}
+import uvicorn
+from walauth.app import app
+from walauth.core.config import settings
 
 def main() -> None:
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(
+        "walauth.app:app", 
+        host="0.0.0.0", 
+        port=settings.PORT,
+        reload=True # set False in production
+    )
+
+if __name__ == "__main__":
+    main()
