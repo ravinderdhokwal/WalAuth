@@ -30,7 +30,8 @@ def create_app() -> FastAPI:
         try:
             await db.execute(text("SELECT 1"))
             return {"status": "ok", "database": "connected"}
-        except Exception:
+        except Exception as e:
+            logger.error("Database health check failed", exc_info=e)
             return JSONResponse(
                 status_code=503,
                 content={"status": "error", "database": "unreachable"},
